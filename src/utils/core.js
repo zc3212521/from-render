@@ -1,11 +1,39 @@
 import Schema from 'async-validator'
 import { deepClone } from '@/utils/index'
-import { defaultMsg, validateUI } from '@/utils/config'
+import defaultConfig, { defaultMsg, patterns, validateUI } from '@/utils/config'
+// ----------
+console.log('111', patterns)
+const descriptor = {
+  name: [
+    { type: 'any' }
+    // { required: true, message: '不能为空' }
+    // { len: 3, message: '长度需为3' },
+    // {
+    //   validator: (rule, value, callback, source, options) => {
+    //     console.log('rule', rule)
+    //     return value !== '123'
+    //   },
+    //   message: '不能等于123'
+    // },
+    // {
+    //   pattern: patterns.lowercase.regexp, message: patterns.lowercase.message
+    // }
+  ]
+}
 
+const validator = new Schema(descriptor)
+
+validator.validate({ name: null }, (error, fields) => {
+  console.log('示例：', error, fields)
+  if (error) {
+    console.log('eg:error', error)
+  }
+})
+// ------------
 export function metaData2ViewData (MetaData, defaultConfig) {
   let serializeData = transform2Array(MetaData)
-  serializeData = combineValidator(serializeData)
-  return addVadatorOptions(serializeData)
+  serializeData = serialize(serializeData)
+  return addValidateOption(serializeData)
 }
 
 export function validateFormItem (viewData, fieldName) {
@@ -14,18 +42,28 @@ export function validateFormItem (viewData, fieldName) {
     if (viewData[i].id === fieldName) {
       const descriptor = generateValidateDescriptor(viewData[i])
       const validator = new Schema(descriptor)
-      validator.validate({ [fieldName]: viewData[i].value }, (error, fields) => {
+      console.log(777, fieldName, viewData[i].value || viewData[i].initialValue)
+      validator.validate({ [fieldName]: viewData[i].value || viewData[i].initialValue }, (error, fields) => {
         if (error) {
           console.log('error', error)
           viewData[i].validateOption.status = 'error'
           viewData[i].validateOption.message = error[0].message
         } else {
           viewData[i].validateOption.status = 'success'
+          viewData[i].validateOption.message = null
         }
       })
     }
   }
   return viewData
+}
+
+export function validateForm (viewData) {
+  let result = []
+  for (let i = 0; i < viewData.length; i++) {
+    result = validateFormItem(viewData, viewData[i].id)
+  }
+  return result
 }
 
 export function updateViewDataByField (newFieldValue, viewData) { // todo 检查单field表单项，适合onChange，不适合全局表单更新
@@ -61,11 +99,17 @@ function transform2Array (metaData) {
   return arrData
 }
 
-function combineValidator (arrData) {
+function serialize (arrData) {
   const _arrData = deepClone(arrData)
   _arrData.forEach(item => {
-    if (item.required) {
-      // 检查rules配置中有无required
+    // init rules
+    if (!item.rules) item.rules = []
+    const cfg = findDefaultCfgByType(item.type)
+    item.rules.push({
+      type: cfg.type
+    })
+    if (item.value === undefined) item.value = cfg.value // add initialValue
+    if (item.required) { // combine validator
       if (!ifRulesHasRequired(item.rules)) {
         item.rules.push({
           required: item.required,
@@ -82,9 +126,9 @@ function ifRulesHasRequired (rules) {
   return rules.some(item => Object.keys(item).includes('required'))
 }
 
-function addVadatorOptions (viewData) {
+function addValidateOption (viewData) {
   for (let i = 0; i < viewData.length; i++) {
-    if (viewData[i].rules && viewData[i].rules.length) {
+    if (viewData[i].rules && viewData[i].rules.length) { // add validateOption
       viewData[i].validateOption = {
         status: null,
         icon: validateUI.icon,
@@ -102,4 +146,10 @@ function generateValidateDescriptor (fieldData) {
     }
   }
   return {}
+}
+
+function findDefaultCfgByType (type) {
+  const result = defaultConfig[type]
+  if (result === undefined) throw new Error(`check if this type exist:${type}`)
+  return result
 }

@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     submit () {
-      console.log('submit', this.form.getFieldsValue(['name']))
+      this.viewData = core.validateForm(this.viewData)
     }
   }
 }

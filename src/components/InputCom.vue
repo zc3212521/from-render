@@ -6,7 +6,7 @@
     :help="formItem.validateOption.message"
   >
       <a-input v-decorator="[formItem.id, {
-        initialValue: formItem.value
+        initialValue: formItem.initialValue
       }]"></a-input>
   </a-form-item>
 </template>
@@ -23,7 +23,7 @@ export default {
   watch: {
     formItem: {
       handler: function (val, oldVal) {
-        // console.log('watch', val, oldVal)
+        console.log('watch', val, oldVal)
       },
       deep: true
     }

@@ -19,9 +19,10 @@ export default {
             type: 'input',
             label: '姓名',
             rules: [
-              { min: 2, max: 6, message: '长度在2-3之间' },
+              // { min: 2, max: 6, message: '长度在2-3之间' },
               { len: 3, message: '长度需为3' }
             ],
+            initialValue: 'nihao',
             required: true,
             properties: {
               disabled: false
@@ -33,11 +34,12 @@ export default {
           sex: {
             type: 'radio',
             label: '性别',
-            defaultValue: 0,
+            // initialValue: 0,
             options: [
               { label: '男', value: 0 },
               { label: '女', value: 1 }
-            ]
+            ],
+            required: true
           }
         },
         api: {

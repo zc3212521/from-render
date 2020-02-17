@@ -4,7 +4,7 @@ const defaultConfig = {
     type: 'string'
   },
   radio: {
-    value: '',
+    value: undefined,
     type: 'any'
   },
   checkbox: {
@@ -12,7 +12,7 @@ const defaultConfig = {
     type: 'array'
   },
   selector: {
-    value: [],
+    value: undefined,
     type: 'any'
   }
 }
@@ -33,10 +33,6 @@ export const patterns = {
 
 export const validateUI = {
   icon: true
-}
-
-export function getAllTypes () {
-  return Object.keys(defaultConfig)
 }
 
 export default defaultConfig

@@ -1,7 +1,12 @@
 <template>
-  <a-form-item :label="formItem.label">
+  <a-form-item
+    :label="formItem.label"
+    :has-feedback="formItem.validateOption.icon"
+    :validate-status="formItem.validateOption.status"
+    :help="formItem.validateOption.message"
+  >
       <a-radio-group v-decorator="[formItem.id, {
-        initialValue: formItem.value
+        initialValue: formItem.initialValue
       }]" :options="options"></a-radio-group>
   </a-form-item>
 </template>
