@@ -25,12 +25,10 @@ export default {
             initialValue: '',
             placeholder: 'input something',
             required: true,
-            properties: {
-              disabled: false
-              // ...
-            },
+            disabled: true,
             customClass: [],
             customStyle: {}
+
           },
           sex: {
             type: 'radio',
@@ -67,6 +65,17 @@ export default {
               { label: '科幻', value: '2', disabled: true }
             ],
             required: true
+          },
+          score: {
+            type: 'inputNumber',
+            label: '分数',
+            placeholder: null,
+            disabled: true,
+            initialValue: 6,
+            exclusive: {
+              min: 0,
+              max: 10
+            }
           }
         },
         api: {

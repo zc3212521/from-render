@@ -2,7 +2,12 @@ const defaultConfig = {
   input: {
     value: '',
     type: 'string',
-    placeholder: '请选择'
+    placeholder: '请填入'
+  },
+  inputNumber: {
+    value: 0,
+    type: 'number',
+    placeholder: '请填入'
   },
   radio: {
     value: undefined,

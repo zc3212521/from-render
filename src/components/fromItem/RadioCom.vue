@@ -5,9 +5,9 @@
     :validate-status="formItem.validateOption.status"
     :help="formItem.validateOption.message"
   >
-      <a-radio-group v-decorator="[formItem.id, {
+    <a-radio-group v-decorator="[formItem.id, {
         initialValue: formItem.initialValue
-      }]" :options="options"></a-radio-group>
+      }]" :options="options"/>
   </a-form-item>
 </template>
 

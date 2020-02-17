@@ -5,10 +5,12 @@
     :validate-status="formItem.validateOption.status"
     :help="formItem.validateOption.message"
   >
-      <a-input
-        :disabled="formItem.disabled"
-        :placeholder="formItem.placeholder"
-        v-decorator="[formItem.id, {
+    <a-input-number
+      :disabled="formItem.disabled"
+      :placeholder="formItem.placeholder"
+      :min="formItem.exclusive.min"
+      :max="formItem.exclusive.max"
+      v-decorator="[formItem.id, {
         initialValue: formItem.initialValue
       }]" />
   </a-form-item>

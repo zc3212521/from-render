@@ -7,7 +7,7 @@
   >
     <a-checkbox-group v-decorator="[formItem.id, {
         initialValue: formItem.initialValue
-      }]" :options="options"></a-checkbox-group>
+      }]" :options="options" />
   </a-form-item>
 </template>
 

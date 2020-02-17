@@ -9,7 +9,7 @@
       :placeholder="formItem.placeholder"
       v-decorator="[formItem.id, {
         initialValue: formItem.initialValue
-      }]" :options="options"></a-select>
+      }]" :options="options" />
   </a-form-item>
 </template>
 

@@ -41,9 +41,9 @@ export function validateFormItem (viewData, fieldName) {
     if (!viewData[i].rules || !viewData[i].rules.length) continue
     if (viewData[i].id === fieldName) {
       const descriptor = generateValidateDescriptor(viewData[i])
-      // console.log('descriptor:', descriptor)
+      console.log('descriptor:', descriptor)
       const validator = new Schema(descriptor)
-      // console.log('source:', viewData[i])
+      console.log('source:', viewData[i])
       validator.validate({ [fieldName]: viewData[i].value }, (error, fields) => {
         if (error) {
           // console.log('error', error)
@@ -140,12 +140,10 @@ function ifRulesHasRequired (rules) {
 
 function addValidateOption (viewData) {
   for (let i = 0; i < viewData.length; i++) {
-    if (viewData[i].rules && viewData[i].rules.length) { // add validateOption
-      viewData[i].validateOption = {
-        status: null,
-        icon: validateUI.icon,
-        message: null
-      }
+    viewData[i].validateOption = {
+      status: null,
+      icon: validateUI.icon,
+      message: null
     }
   }
   return viewData

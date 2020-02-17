@@ -3,6 +3,9 @@
     <template v-if="formItem.type === 'input'">
       <input-com :form-item="formItem" />
     </template>
+    <template v-if="formItem.type === 'inputNumber'">
+      <input-number-com :form-item="formItem" />
+    </template>
     <template v-if="formItem.type === 'radio'">
       <radio-com :form-item="formItem" />
     </template>
@@ -20,6 +23,7 @@ import InputCom from './fromItem/InputCom'
 import RadioCom from './fromItem/RadioCom'
 import CheckboxCom from './fromItem/CheckboxCom'
 import SelectCom from './fromItem/SelectCom'
+import InputNumberCom from './fromItem/InputNumberCom'
 
 export default {
   name: 'FormRenderItem',
@@ -27,7 +31,8 @@ export default {
     InputCom,
     RadioCom,
     CheckboxCom,
-    SelectCom
+    SelectCom,
+    InputNumberCom
   },
   props: {
     formItem: {
@@ -44,7 +49,6 @@ export default {
     }
   },
   created () {
-    console.log(123, this.formItem)
     this.options = this.formItem.options
   }
 }
