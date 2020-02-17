@@ -6,18 +6,28 @@
     <template v-if="formItem.type === 'radio'">
       <radio-com :form-item="formItem" />
     </template>
+    <template v-if="formItem.type === 'checkbox'">
+      <checkbox-com :form-item="formItem" />
+    </template>
+    <template v-if="formItem.type === 'select'">
+      <select-com :form-item="formItem" />
+    </template>
   </span>
 </template>
 
 <script>
-import InputCom from './InputCom'
-import RadioCom from './RadioCom'
+import InputCom from './fromItem/InputCom'
+import RadioCom from './fromItem/RadioCom'
+import CheckboxCom from './fromItem/CheckboxCom'
+import SelectCom from './fromItem/SelectCom'
 
 export default {
   name: 'FormRenderItem',
   components: {
     InputCom,
-    RadioCom
+    RadioCom,
+    CheckboxCom,
+    SelectCom
   },
   props: {
     formItem: {

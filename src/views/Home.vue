@@ -22,7 +22,8 @@ export default {
               // { min: 2, max: 6, message: '长度在2-3之间' },
               { len: 3, message: '长度需为3' }
             ],
-            initialValue: 'nihao',
+            initialValue: '',
+            placeholder: 'input something',
             required: true,
             properties: {
               disabled: false
@@ -38,6 +39,32 @@ export default {
             options: [
               { label: '男', value: 0 },
               { label: '女', value: 1 }
+            ],
+            required: true
+          },
+          hobby: {
+            type: 'checkbox',
+            label: '爱好',
+            initialValue: [],
+            options: [
+              { label: '篮球', value: '0' },
+              { label: '游泳', value: '1' },
+              { label: '电动', value: '2', disabled: true }
+            ],
+            rules: [
+              { min: 2, message: '必填2项' }
+            ],
+            required: true
+          },
+          book: {
+            type: 'select',
+            label: '书籍类型',
+            placeholder: null,
+            initialValue: '0',
+            options: [
+              { label: '古典', value: '0' },
+              { label: '言情', value: '1' },
+              { label: '科幻', value: '2', disabled: true }
             ],
             required: true
           }

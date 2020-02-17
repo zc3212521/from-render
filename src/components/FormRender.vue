@@ -32,6 +32,7 @@ export default {
         console.log('onValuesChange', props, values)
         const currentViewData = core.updateViewDataByField(values, this.viewData)
         const fieldName = Object.keys(values)[0]
+        console.log('validate', currentViewData)
         this.viewData = core.validateFormItem(currentViewData, fieldName)
       }
     })

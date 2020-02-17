@@ -1,19 +1,21 @@
 const defaultConfig = {
   input: {
     value: '',
-    type: 'string'
+    type: 'string',
+    placeholder: '请选择'
   },
   radio: {
     value: undefined,
     type: 'any'
   },
-  checkbox: {
+  checkbox: { // 注意：凡是数组类型的最少验证需要添加 required:true 配置项
     value: [],
     type: 'array'
   },
-  selector: {
+  select: {
     value: undefined,
-    type: 'any'
+    type: 'any',
+    placeholder: '请选择'
   }
 }
 

@@ -5,9 +5,9 @@ import defaultConfig, { defaultMsg, patterns, validateUI } from '@/utils/config'
 console.log('111', patterns)
 const descriptor = {
   name: [
-    { type: 'any' }
-    // { required: true, message: '不能为空' }
-    // { len: 3, message: '长度需为3' },
+    { required: true, message: '必填' },
+    { type: 'array', min: 2, message: '至少2' }
+    // { type: 'array', min: 2, message: '长度需为3' }
     // {
     //   validator: (rule, value, callback, source, options) => {
     //     console.log('rule', rule)
@@ -23,7 +23,7 @@ const descriptor = {
 
 const validator = new Schema(descriptor)
 
-validator.validate({ name: null }, (error, fields) => {
+validator.validate({ name: [] }, (error, fields) => {
   console.log('示例：', error, fields)
   if (error) {
     console.log('eg:error', error)
@@ -41,11 +41,12 @@ export function validateFormItem (viewData, fieldName) {
     if (!viewData[i].rules || !viewData[i].rules.length) continue
     if (viewData[i].id === fieldName) {
       const descriptor = generateValidateDescriptor(viewData[i])
+      // console.log('descriptor:', descriptor)
       const validator = new Schema(descriptor)
-      console.log(777, fieldName, viewData[i].value || viewData[i].initialValue)
-      validator.validate({ [fieldName]: viewData[i].value || viewData[i].initialValue }, (error, fields) => {
+      // console.log('source:', viewData[i])
+      validator.validate({ [fieldName]: viewData[i].value }, (error, fields) => {
         if (error) {
-          console.log('error', error)
+          // console.log('error', error)
           viewData[i].validateOption.status = 'error'
           viewData[i].validateOption.message = error[0].message
         } else {
@@ -102,16 +103,27 @@ function transform2Array (metaData) {
 function serialize (arrData) {
   const _arrData = deepClone(arrData)
   _arrData.forEach(item => {
+    const cfg = findDefaultCfgByType(item.type)
+    // init placeholder
+    if (cfg.placeholder) {
+      if (item.placeholder === undefined) {
+        item.placeholder = cfg.placeholder
+      }
+    }
     // init rules
     if (!item.rules) item.rules = []
-    const cfg = findDefaultCfgByType(item.type)
-    item.rules.push({
-      type: cfg.type
-    })
+
+    if (item.rules.length) {
+      item.rules.forEach(it => {
+        it.type = cfg.type
+      })
+    }
+    item.value = item.initialValue === undefined ? cfg.value : item.initialValue
     if (item.value === undefined) item.value = cfg.value // add initialValue
     if (item.required) { // combine validator
       if (!ifRulesHasRequired(item.rules)) {
         item.rules.push({
+          type: cfg.type,
           required: item.required,
           message: defaultMsg.required
         })

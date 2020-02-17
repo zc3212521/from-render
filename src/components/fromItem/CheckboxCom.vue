@@ -5,30 +5,28 @@
     :validate-status="formItem.validateOption.status"
     :help="formItem.validateOption.message"
   >
-      <a-input v-decorator="[formItem.id, {
+    <a-checkbox-group v-decorator="[formItem.id, {
         initialValue: formItem.initialValue
-      }]"></a-input>
+      }]" :options="options"></a-checkbox-group>
   </a-form-item>
 </template>
 
 <script>
 export default {
-  name: 'InputCom',
+  name: 'RadioCom',
   props: {
     formItem: {
       type: Object,
-      required: true
+      require: true
     }
   },
-  watch: {
-    formItem: {
-      handler: function (val, oldVal) {
-        console.log('watch', val, oldVal)
-      },
-      deep: true
+  data () {
+    return {
+      options: []
     }
   },
   created () {
+    this.options = this.formItem.options
   }
 }
 </script>
