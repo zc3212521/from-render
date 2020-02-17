@@ -69,8 +69,8 @@ export default {
           score: {
             type: 'inputNumber',
             label: '分数',
-            placeholder: null,
-            disabled: true,
+            // placeholder: null,
+            // disabled: true,
             initialValue: 6,
             exclusive: {
               min: 0,
