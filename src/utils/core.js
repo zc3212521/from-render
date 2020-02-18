@@ -2,7 +2,7 @@ import Schema from 'async-validator'
 import { deepClone } from '@/utils/index'
 import defaultConfig, { defaultMsg, validateUI } from '@/utils/config'
 
-export function metaData2ViewData (MetaData, defaultConfig) {
+export function metaData2ViewData (MetaData) {
   return serialize(MetaData)
 }
 
@@ -33,7 +33,6 @@ function serialize (metaData) {
   } else {
     throw new Error('formData must has a property: schema')
   }
-  console.log(10011, _metaData)
   return _metaData
 }
 

@@ -17,7 +17,6 @@
 <script>
 import FieldCom from '@/components/FieldCom'
 import DivideCom from '@/components/fromItem/DivideCom'
-import defaultConfig from '@/utils/config'
 import * as core from '@/utils/core'
 
 export default {
@@ -57,9 +56,7 @@ export default {
     }
   },
   created () {
-    const viewData = core.metaData2ViewData(this.metaData, defaultConfig)
-    console.log(999, viewData)
-    this.viewData = viewData
+    this.viewData = core.metaData2ViewData(this.metaData)
   },
   methods: {
     submit () {
