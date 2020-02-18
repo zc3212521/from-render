@@ -1,21 +1,30 @@
 <template>
-  <a-form :form="form">
-    <template v-for="item in viewData">
-      <FormRenderItem :form-item="item" :key="item._id"/>
-    </template>
+  <a-form :form="form" :layout="metaData.schema.layout">
+    <a-row v-for="row in rows"  :key="row.key">
+      <a-col v-if="row.formItem === undefined && row.divide">
+        <divide-com :title="row.divide" />
+      </a-col>
+      <template v-else>
+        <a-col v-for="item in row.formItem"  :key="item.id" >
+          <field-com :field="item" />
+        </a-col>
+      </template>
+    </a-row>
     <a-button @click="submit">submit</a-button>
   </a-form>
 </template>
 
 <script>
-import FormRenderItem from '@/components/FormRenderItem'
+import FieldCom from '@/components/FieldCom'
+import DivideCom from '@/components/fromItem/DivideCom'
 import defaultConfig from '@/utils/config'
 import * as core from '@/utils/core'
 
 export default {
   name: 'FormRender',
   components: {
-    FormRenderItem
+    FieldCom,
+    DivideCom
   },
   props: {
     metaData: {
@@ -33,18 +42,24 @@ export default {
         const currentViewData = core.updateViewDataByField(values, this.viewData)
         const fieldName = Object.keys(values)[0]
         console.log('validate', currentViewData)
-        this.viewData = core.validateFormItem(currentViewData, fieldName)
+        this.viewData = core.validateForm(currentViewData, fieldName)
       }
     })
   },
   data () {
     return {
-      viewData: [],
-      options: []
+      viewData: null
+    }
+  },
+  computed: {
+    rows: function () {
+      return this.viewData.schema.rows
     }
   },
   created () {
-    this.viewData = core.metaData2ViewData(this.metaData, defaultConfig)
+    const viewData = core.metaData2ViewData(this.metaData, defaultConfig)
+    console.log(999, viewData)
+    this.viewData = viewData
   },
   methods: {
     submit () {

@@ -1,19 +1,19 @@
 <template>
   <span>
-    <template v-if="formItem.type === 'input'">
-      <input-com :form-item="formItem" />
+    <template v-if="field.type === 'input'">
+      <input-com :field="field" />
     </template>
-    <template v-if="formItem.type === 'inputNumber'">
-      <input-number-com :form-item="formItem" />
+    <template v-if="field.type === 'inputNumber'">
+      <input-number-com :field="field" />
     </template>
-    <template v-if="formItem.type === 'radio'">
-      <radio-com :form-item="formItem" />
+    <template v-if="field.type === 'radio'">
+      <radio-com :field="field" />
     </template>
-    <template v-if="formItem.type === 'checkbox'">
-      <checkbox-com :form-item="formItem" />
+    <template v-if="field.type === 'checkbox'">
+      <checkbox-com :field="field" />
     </template>
-    <template v-if="formItem.type === 'select'">
-      <select-com :form-item="formItem" />
+    <template v-if="field.type === 'select'">
+      <select-com :field="field" />
     </template>
   </span>
 </template>
@@ -26,7 +26,7 @@ import SelectCom from './fromItem/SelectCom'
 import InputNumberCom from './fromItem/InputNumberCom'
 
 export default {
-  name: 'FormRenderItem',
+  name: 'Field',
   components: {
     InputCom,
     RadioCom,
@@ -35,13 +35,13 @@ export default {
     InputNumberCom
   },
   props: {
-    formItem: {
+    field: {
       type: Object,
       required: true
     }
   },
   watch: {
-    formItem: {
+    field: {
       handler: function (val, oldVal) {
         // console.log('watch', val, oldVal)
       },
@@ -49,7 +49,7 @@ export default {
     }
   },
   created () {
-    this.options = this.formItem.options
+    this.options = this.field.options
   }
 }
 </script>

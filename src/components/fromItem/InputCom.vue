@@ -1,15 +1,17 @@
 <template>
   <a-form-item
-    :label="formItem.label"
-    :has-feedback="formItem.validateOption.icon"
-    :validate-status="formItem.validateOption.status"
-    :help="formItem.validateOption.message"
+    :label="field.label"
+    :has-feedback="field.validateOption.icon"
+    :validate-status="field.validateOption.status"
+    :help="field.validateOption.message"
+    :label-col="field.fieldLayout.labelCol"
+    :wrapper-col="field.fieldLayout.wrapperCol"
   >
       <a-input
-        :disabled="formItem.disabled"
-        :placeholder="formItem.placeholder"
-        v-decorator="[formItem.id, {
-        initialValue: formItem.initialValue
+        :disabled="field.disabled"
+        :placeholder="field.placeholder"
+        v-decorator="[field.id, {
+        initialValue: field.initialValue
       }]" />
   </a-form-item>
 </template>
@@ -18,13 +20,13 @@
 export default {
   name: 'InputCom',
   props: {
-    formItem: {
+    field: {
       type: Object,
       required: true
     }
   },
   // watch: {
-  //   formItem: {
+  //   field: {
   //     handler: function (val, oldVal) {
   //       // console.log('watch', val, oldVal)
   //     },

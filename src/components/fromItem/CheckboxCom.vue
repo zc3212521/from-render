@@ -1,12 +1,14 @@
 <template>
   <a-form-item
-    :label="formItem.label"
-    :has-feedback="formItem.validateOption.icon"
-    :validate-status="formItem.validateOption.status"
-    :help="formItem.validateOption.message"
+    :label="field.label"
+    :has-feedback="field.validateOption.icon"
+    :validate-status="field.validateOption.status"
+    :help="field.validateOption.message"
+    :label-col="field.fieldLayout.labelCol"
+    :wrapper-col="field.fieldLayout.wrapperCol"
   >
-    <a-checkbox-group v-decorator="[formItem.id, {
-        initialValue: formItem.initialValue
+    <a-checkbox-group v-decorator="[field.id, {
+        initialValue: field.initialValue
       }]" :options="options" />
   </a-form-item>
 </template>
@@ -15,7 +17,7 @@
 export default {
   name: 'RadioCom',
   props: {
-    formItem: {
+    field: {
       type: Object,
       require: true
     }
@@ -26,7 +28,7 @@ export default {
     }
   },
   created () {
-    this.options = this.formItem.options
+    this.options = this.field.options
   }
 }
 </script>
