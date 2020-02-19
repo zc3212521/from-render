@@ -127,7 +127,7 @@ const exampleData = {
     footer: {
       layout: {
         labelCol: { span: 4 },
-        wrapperCol: { span: 14, offset: 4 }
+        wrapperCol: { span: 14, offset: 2 }
       },
       buttons: [
         {
@@ -148,8 +148,8 @@ const exampleData = {
     },
     errors: [],
     ui: {
-      style: {},
-      gutter: 24
+      style: { padding: '20px' },
+      gutter: 16
     },
     associate: { // 关联属性 todo 如何在ui层添加逻辑
       login: {

@@ -23,7 +23,6 @@
     </a-row>
     <footer-com
       :data="formDesc.footer"
-      :callback-group="cbs"
       @click-btn="clickBtn"
     />
   </a-form>

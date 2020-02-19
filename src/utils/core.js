@@ -102,7 +102,6 @@ function addValidateOption (formItemArr) {
   return formItemArr
 }
 
-// ----
 /**
  * 根据表单名，校验视图数据，传入第二个参数表示校验名为fieldName的表单项，不传校验所有表单项
  * @param viewData
@@ -156,7 +155,7 @@ function validateField (field, formDesc) {
   return field
 }
 
-export function updateViewDataByField (newFieldValue, viewData) { // todo 检查单field表单项，适合onChange，不适合全局表单更新
+export function updateViewDataByField (newFieldValue, viewData) { // 检查单field表单项，适合onChange，不适合全局表单更新
   const newViewData = deepClone(viewData)
   const { formDesc } = newViewData
   formDesc.rows = formDesc.rows.map(item => {

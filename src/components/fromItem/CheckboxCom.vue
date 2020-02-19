@@ -6,6 +6,7 @@
     :help="field.validateOption.message"
     :label-col="field.layout.labelCol"
     :wrapper-col="field.layout.wrapperCol"
+    :required="!!field.rules && field.rules.length > 0"
   >
     <a-checkbox-group v-decorator="[field.id, {
         initialValue: field.initialValue
