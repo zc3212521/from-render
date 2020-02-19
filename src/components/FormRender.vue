@@ -64,8 +64,7 @@ export default {
   },
   data () {
     return {
-      viewData: null,
-      cbs: [this.cb]
+      viewData: null
     }
   },
   computed: {
@@ -81,9 +80,6 @@ export default {
     console.log(this.formDesc)
   },
   methods: {
-    cb (values) {
-      console.log('cb', values)
-    },
     clickBtn (index, ifValidateForm) {
       let error
       if (ifValidateForm) {
