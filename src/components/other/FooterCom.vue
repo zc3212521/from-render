@@ -8,7 +8,9 @@
       :key="btn.text"
       :disabled="btn.disabled"
       :type="btn.type"
+      :size="btn.size"
       @click="() => { clickBtn(index) }"
+      :style="{marginRight: '15px'}"
     >{{btn.text}}</a-button>
   </a-form-item>
 </template>
@@ -29,7 +31,7 @@ export default {
   },
   methods: {
     clickBtn (index) {
-      this.$emit('click-btn', index)
+      this.$emit('click-btn', index, this.buttons[index].ifValidateForm)
     }
   }
 }

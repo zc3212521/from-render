@@ -84,10 +84,15 @@ export default {
     cb (values) {
       console.log('cb', values)
     },
-    clickBtn (index) {
-      this.viewData = core.validateForm(this.viewData)
-      const errors = this.viewData.formDesc.errors
-      const error = errors.length ? errors : null
+    clickBtn (index, ifValidateForm) {
+      let error
+      if (ifValidateForm) {
+        this.viewData = core.validateForm(this.viewData)
+        const errors = this.viewData.formDesc.errors
+        error = errors.length ? errors : null
+      } else {
+        error = null
+      }
       const values = this.form.getFieldsValue()
       this.$emit('click-btn', error, values, index)
     }

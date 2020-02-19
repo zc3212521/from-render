@@ -134,13 +134,15 @@ const exampleData = {
           text: '确定',
           type: 'primary',
           size: 'default',
-          disabled: false
+          disabled: false,
+          ifValidateForm: true
         },
         {
           text: '取消',
           type: 'default',
           size: 'default',
-          disabled: false
+          disabled: false,
+          ifValidateForm: false
         }
       ]
     },
