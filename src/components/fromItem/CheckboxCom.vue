@@ -4,8 +4,8 @@
     :has-feedback="field.validateOption.icon"
     :validate-status="field.validateOption.status"
     :help="field.validateOption.message"
-    :label-col="field.fieldLayout.labelCol"
-    :wrapper-col="field.fieldLayout.wrapperCol"
+    :label-col="field.layout.labelCol"
+    :wrapper-col="field.layout.wrapperCol"
   >
     <a-checkbox-group v-decorator="[field.id, {
         initialValue: field.initialValue
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'RadioCom',
+  name: 'CheckboxCom',
   props: {
     field: {
       type: Object,

@@ -15,13 +15,13 @@ export default {
     return {
       formData: {
         formDesc: {
-          layout: 'horizontal', // vertical, inline, horizontal
+          showType: 'horizontal', // vertical, inline, horizontal
           rows: [
             {
-              divide: '456'
+              divide: '分组1'
             },
             {
-              rowLayout: {
+              layout: {
                 span: 8,
                 gutter: 24
               },
@@ -38,7 +38,7 @@ export default {
                   required: true,
                   customClass: [],
                   customStyle: {},
-                  fieldLayout: {
+                  layout: {
                     labelCol: { span: 4 },
                     wrapperCol: { span: 14 }
                   }
@@ -52,7 +52,7 @@ export default {
                     { label: '女', value: 1 }
                   ],
                   required: true,
-                  fieldLayout: {
+                  layout: {
                     labelCol: { span: 4 },
                     wrapperCol: { span: 14 }
                   }
@@ -60,7 +60,7 @@ export default {
               }
             },
             {
-              divide: '123'
+              divide: '分组2'
             },
             {
               span: 8,
@@ -79,7 +79,7 @@ export default {
                     { min: 2, message: '必填2项' }
                   ],
                   required: true,
-                  fieldLayout: {
+                  layout: {
                     labelCol: { span: 4 },
                     wrapperCol: { span: 14 }
                   }
@@ -95,7 +95,7 @@ export default {
                     { label: '科幻', value: '2', disabled: true }
                   ],
                   required: true,
-                  fieldLayout: {
+                  layout: {
                     labelCol: { span: 4 },
                     wrapperCol: { span: 14 }
                   }
@@ -110,23 +110,28 @@ export default {
                     min: 0,
                     max: 10
                   },
-                  fieldLayout: {
+                  layout: {
                     labelCol: { span: 4 },
                     wrapperCol: { span: 14 }
                   }
                 }
               }
             }
-            // {
-            //   span: 8,
-            //   gutter: 24,
-            //   formItem: {
-            //     submit: {
-            //       type: 'primaryButton'
-            //     }
-            //   }
-            // }
           ],
+          footer: {
+            layout: {
+              labelCol: { span: 4 },
+              wrapperCol: { span: 14, offset: 4 }
+            },
+            buttons: [
+              {
+                text: '确定',
+                type: 'primary',
+                size: 'default',
+                disabled: false
+              }
+            ]
+          },
           associate: { // 关联属性 todo 如何在ui层添加逻辑
             login: {
               value: true,

@@ -1,5 +1,5 @@
 <template>
-  <a-form :form="form" :layout="metaData.formDesc.layout">
+  <a-form :form="form" :layout="metaData.formDesc.showType">
     <a-row v-for="row in rows"  :key="row.key">
       <a-col v-if="row.formItem === undefined && row.divide">
         <divide-com :title="row.divide" />
@@ -10,20 +10,22 @@
         </a-col>
       </template>
     </a-row>
-    <a-button @click="submit">submit</a-button>
+    <footer-com :data="metaData.formDesc.footer"></footer-com>
   </a-form>
 </template>
 
 <script>
 import FieldCom from '@/components/FieldCom'
-import DivideCom from '@/components/fromItem/DivideCom'
+import DivideCom from '@/components/other/DivideCom'
+import FooterCom from '@/components/other/FooterCom'
 import * as core from '@/utils/core'
 
 export default {
   name: 'FormRender',
   components: {
     FieldCom,
-    DivideCom
+    DivideCom,
+    FooterCom
   },
   props: {
     metaData: {

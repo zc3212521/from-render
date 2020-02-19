@@ -26,7 +26,7 @@ import SelectCom from './fromItem/SelectCom'
 import InputNumberCom from './fromItem/InputNumberCom'
 
 export default {
-  name: 'Field',
+  name: 'FieldCom',
   components: {
     InputCom,
     RadioCom,
