@@ -4,10 +4,11 @@
     :wrapper-col="data.layout.wrapperCol"
   >
     <a-button
-      v-for="btn in buttons"
+      v-for="(btn, index) in buttons"
       :key="btn.text"
       :disabled="btn.disabled"
       :type="btn.type"
+      @click="() => { clickBtn(index) }"
     >{{btn.text}}</a-button>
   </a-form-item>
 </template>
@@ -24,6 +25,11 @@ export default {
   computed: {
     buttons: function () {
       return this.data.buttons
+    }
+  },
+  methods: {
+    clickBtn (index) {
+      this.$emit('click-btn', index)
     }
   }
 }

@@ -111,12 +111,13 @@ function addValidateOption (formItemArr) {
  */
 export function validateForm (viewData, fieldName) {
   const { formDesc } = viewData
+  formDesc.errors = []
   if (formDesc.rows && formDesc.rows.length) {
     const { rows } = formDesc
     rows.forEach(item => {
       if (item.formItem) {
         const { formItem } = item
-        item.formItem = validateFormItem(formItem, fieldName)
+        item.formItem = validateFormItem(formItem, formDesc, fieldName)
       }
     })
     formDesc.rows = rows
@@ -125,28 +126,28 @@ export function validateForm (viewData, fieldName) {
   return viewData
 }
 
-function validateFormItem (formItem, fieldName) {
+function validateFormItem (formItem, formDesc, fieldName) {
   for (let i = 0; i < formItem.length; i++) {
     if (!formItem[i].rules || !formItem[i].rules.length) continue
     if (fieldName) { // 校验单个field
       if (formItem[i].id === fieldName) {
-        formItem[i] = validateField(formItem[i])
+        formItem[i] = validateField(formItem[i], formDesc)
       }
     } else { // 校验所有field
-      formItem[i] = validateField(formItem[i])
+      formItem[i] = validateField(formItem[i], formDesc)
     }
   }
   return formItem
 }
 
-function validateField (field) {
+function validateField (field, formDesc) {
   const descriptor = generateValidateDescriptor(field)
   const validator = new Schema(descriptor)
   validator.validate({ [field.id]: field.value }, (error, fields) => {
     if (error) {
-      // console.log('error', error)
       field.validateOption.status = 'error'
       field.validateOption.message = error[0].message
+      formDesc.errors.push(...error)
     } else {
       field.validateOption.status = 'success'
       field.validateOption.message = null

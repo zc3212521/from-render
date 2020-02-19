@@ -1,16 +1,31 @@
 <template>
-  <a-form :form="form" :layout="metaData.formDesc.showType">
-    <a-row v-for="row in rows"  :key="row.key">
-      <a-col v-if="row.formItem === undefined && row.divide">
-        <divide-com :title="row.divide" />
-      </a-col>
+  <a-form :form="form" layout="horizontal" :style="formDesc.ui.style">
+    <a-row
+      v-for="row in rows"
+      :gutter="formDesc.ui.gutter"
+      :key="row.key"
+    >
+      <template v-if="row.formItem === undefined && row.divide">
+        <a-col :span="24">
+          <divide-com :title="row.divide"/>
+        </a-col>
+      </template>
       <template v-else>
-        <a-col v-for="item in row.formItem"  :key="item.id" >
+        <a-col
+          v-for="item in row.formItem"
+          :key="item.id"
+          :span="item.grid.span"
+          :offset="item.grid.offset"
+        >
           <field-com :field="item" />
         </a-col>
       </template>
     </a-row>
-    <footer-com :data="metaData.formDesc.footer"></footer-com>
+    <footer-com
+      :data="formDesc.footer"
+      :callback-group="cbs"
+      @click-btn="clickBtn"
+    />
   </a-form>
 </template>
 
@@ -49,20 +64,32 @@ export default {
   },
   data () {
     return {
-      viewData: null
+      viewData: null,
+      cbs: [this.cb]
     }
   },
   computed: {
     rows: function () {
       return this.viewData.formDesc.rows
+    },
+    formDesc: function () {
+      return this.viewData.formDesc
     }
   },
   created () {
     this.viewData = core.metaData2ViewData(this.metaData)
+    console.log(this.formDesc)
   },
   methods: {
-    submit () {
+    cb (values) {
+      console.log('cb', values)
+    },
+    clickBtn (index) {
       this.viewData = core.validateForm(this.viewData)
+      const errors = this.viewData.formDesc.errors
+      const error = errors.length ? errors : null
+      const values = this.form.getFieldsValue()
+      this.$emit('click-btn', error, values, index)
     }
   }
 }
