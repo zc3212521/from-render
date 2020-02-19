@@ -1,5 +1,5 @@
 <template>
-  <a-form :form="form" :layout="metaData.schema.layout">
+  <a-form :form="form" :layout="metaData.formDesc.layout">
     <a-row v-for="row in rows"  :key="row.key">
       <a-col v-if="row.formItem === undefined && row.divide">
         <divide-com :title="row.divide" />
@@ -52,7 +52,7 @@ export default {
   },
   computed: {
     rows: function () {
-      return this.viewData.schema.rows
+      return this.viewData.formDesc.rows
     }
   },
   created () {

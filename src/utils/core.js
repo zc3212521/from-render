@@ -13,10 +13,10 @@ export function metaData2ViewData (MetaData) {
  */
 function serialize (metaData) {
   const _metaData = deepClone(metaData)
-  if ('schema' in _metaData) {
-    const { schema } = metaData
-    if ('rows' in schema) {
-      const { rows } = schema
+  if ('formDesc' in _metaData) {
+    const { formDesc } = metaData
+    if ('rows' in formDesc) {
+      const { rows } = formDesc
       for (let i = 0; i < rows.length; i++) {
         rows[i].key = uuid()
         if (rows[i].formItem) { // 序列化 formItem
@@ -27,11 +27,11 @@ function serialize (metaData) {
           rows[i].formItem = formItemArr
         }
       }
-      schema.rows = rows
-      _metaData.schema = schema
+      formDesc.rows = rows
+      _metaData.formDesc = formDesc
     }
   } else {
-    throw new Error('formData must has a property: schema')
+    throw new Error('formData must has a property: formDesc')
   }
   return _metaData
 }
@@ -110,18 +110,18 @@ function addValidateOption (formItemArr) {
  * @returns {*}
  */
 export function validateForm (viewData, fieldName) {
-  const { schema } = viewData
-  if (schema.rows && schema.rows.length) {
-    const { rows } = schema
+  const { formDesc } = viewData
+  if (formDesc.rows && formDesc.rows.length) {
+    const { rows } = formDesc
     rows.forEach(item => {
       if (item.formItem) {
         const { formItem } = item
         item.formItem = validateFormItem(formItem, fieldName)
       }
     })
-    schema.rows = rows
+    formDesc.rows = rows
   }
-  viewData.schema = schema
+  viewData.formDesc = formDesc
   return viewData
 }
 
@@ -157,8 +157,8 @@ function validateField (field) {
 
 export function updateViewDataByField (newFieldValue, viewData) { // todo 检查单field表单项，适合onChange，不适合全局表单更新
   const newViewData = deepClone(viewData)
-  const { schema } = newViewData
-  schema.rows = schema.rows.map(item => {
+  const { formDesc } = newViewData
+  formDesc.rows = formDesc.rows.map(item => {
     if (item.formItem) {
       const { formItem } = item
       for (let i = 0; i < formItem.length; i++) {
@@ -170,7 +170,7 @@ export function updateViewDataByField (newFieldValue, viewData) { // todo 检查
     }
     return item
   })
-  newViewData.schema = schema
+  newViewData.formDesc = formDesc
   console.log('add new value:', newViewData)
   return newViewData
 }

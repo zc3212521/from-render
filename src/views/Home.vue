@@ -14,7 +14,7 @@ export default {
   data () {
     return {
       formData: {
-        schema: {
+        formDesc: {
           layout: 'horizontal', // vertical, inline, horizontal
           rows: [
             {
