@@ -1,5 +1,5 @@
 import Schema from 'async-validator'
-import { deepClone } from '@/utils/index'
+import { deepClone } from '@/utils'
 import defaultConfig, { defaultMsg, validateUI } from '@/utils/config'
 
 export function metaData2ViewData (MetaData) {

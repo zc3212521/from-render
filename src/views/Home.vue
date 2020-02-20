@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import FormRender from '@/components/FormRender'
+import FormRender from '@/components/FormRender/index'
 
 const exampleData = {
   formDesc: {

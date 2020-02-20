@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import FieldCom from '@/components/FieldCom'
-import DivideCom from '@/components/other/DivideCom'
-import FooterCom from '@/components/other/FooterCom'
-import * as core from '@/utils/core'
+import FieldCom from '@/components/FormRender/FieldCom'
+import DivideCom from '@/components/FormRender/other/DivideCom'
+import FooterCom from '@/components/FormRender/other/FooterCom'
+import * as core from '@/components/FormRender/utils/core'
 
 export default {
   name: 'FormRender',
