@@ -1,5 +1,5 @@
 import Schema from 'async-validator'
-import { deepClone } from '@/utils'
+import { deepClone, generateUnitId } from './utils'
 import defaultConfig, { defaultMsg, validateUI } from '@/utils/config'
 
 export function metaData2ViewData (MetaData) {
@@ -18,7 +18,7 @@ function serialize (metaData) {
     if ('rows' in formDesc) {
       const { rows } = formDesc
       for (let i = 0; i < rows.length; i++) {
-        rows[i].key = uuid()
+        rows[i].key = generateUnitId()
         if (rows[i].formItem) { // 序列化 formItem
           const { formItem } = rows[i]
           let formItemArr = transformItem2Array(formItem)
@@ -174,7 +174,6 @@ export function updateViewDataByField (newFieldValue, viewData) { // 检查单fi
   console.log('add new value:', newViewData)
   return newViewData
 }
-
 export function viewData2MetaData (ViewData) {
   // return MetaData
 }
@@ -186,8 +185,4 @@ function generateValidateDescriptor (fieldData) {
     }
   }
   return {}
-}
-
-function uuid () {
-  return Math.random().toString(36).substr(2)
 }

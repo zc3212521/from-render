@@ -32,7 +32,7 @@
 import FieldCom from '@/components/FormRender/FieldCom'
 import DivideCom from '@/components/FormRender/other/DivideCom'
 import FooterCom from '@/components/FormRender/other/FooterCom'
-import * as core from '@/components/FormRender/utils/core'
+import * as core from '@/components/FormRender/core/index'
 
 export default {
   name: 'FormRender',
