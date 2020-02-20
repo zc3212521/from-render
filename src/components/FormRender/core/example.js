@@ -15,8 +15,9 @@ export const exampleData = {
             type: 'input',
             label: '姓名',
             rules: [
-              // { min: 2, max: 6, message: '长度在2-3之间' },
-              { len: 3, message: '长度需为3' }
+              { min: 2, max: 6, message: '长度在2-6之间' },
+              { len: 3, message: '长度需为3' },
+              { pattern: patterns.lowercase.regexp, message: patterns.lowercase.message }
             ],
             initialValue: '',
             placeholder: 'placeholder',
