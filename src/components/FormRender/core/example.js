@@ -1,5 +1,5 @@
 import Schema from 'async-validator'
-import { patterns } from '@/utils/config'
+import { patterns } from './config'
 
 console.log('schema.pattern', Schema.pattern)
 

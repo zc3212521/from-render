@@ -1,6 +1,6 @@
 import Schema from 'async-validator'
 import { deepClone, generateUnitId } from './utils'
-import defaultConfig, { defaultMsg, validateUI } from '@/utils/config'
+import defaultConfig, { defaultMsg, validateUI } from './config'
 
 export function metaData2ViewData (MetaData) {
   return serialize(MetaData)
