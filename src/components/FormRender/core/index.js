@@ -19,12 +19,12 @@ function serialize (metaData) {
       const { rows } = formDesc
       for (let i = 0; i < rows.length; i++) {
         rows[i].key = generateUnitId()
-        if (rows[i].formItem) { // 序列化 formItem
-          const { formItem } = rows[i]
+        if (rows[i].type === 'formItem') { // 序列化 formItem
+          const formItem = rows[i].content
           let formItemArr = transformItem2Array(formItem)
           formItemArr = addDefaultConfig(formItemArr)
           formItemArr = addValidateOption(formItemArr)
-          rows[i].formItem = formItemArr
+          rows[i].content = formItemArr
         }
       }
       formDesc.rows = rows
@@ -114,9 +114,9 @@ export function validateForm (viewData, fieldName) {
   if (formDesc.rows && formDesc.rows.length) {
     const { rows } = formDesc
     rows.forEach(item => {
-      if (item.formItem) {
-        const { formItem } = item
-        item.formItem = validateFormItem(formItem, formDesc, fieldName)
+      if (item.type === 'formItem') {
+        const formItem = item.content
+        item.content = validateFormItem(formItem, formDesc, fieldName)
       }
     })
     formDesc.rows = rows
@@ -159,14 +159,14 @@ export function updateViewDataByField (newFieldValue, viewData) { // 检查单fi
   const newViewData = deepClone(viewData)
   const { formDesc } = newViewData
   formDesc.rows = formDesc.rows.map(item => {
-    if (item.formItem) {
-      const { formItem } = item
+    if (item.type === 'formItem') {
+      const formItem = item.content
       for (let i = 0; i < formItem.length; i++) {
         if (formItem[i].id === Object.keys(newFieldValue)[0]) {
           formItem[i].value = newFieldValue[Object.keys(newFieldValue)[0]]
         }
       }
-      item.formItem = formItem
+      item.content = formItem
     }
     return item
   })

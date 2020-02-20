@@ -5,14 +5,14 @@
       :gutter="formDesc.ui.gutter"
       :key="row.key"
     >
-      <template v-if="row.formItem === undefined && row.divide">
+      <template v-if="row.type === 'group'">
         <a-col :span="24">
-          <divide-com :title="row.divide"/>
+          <divide-com :title="row.content"/>
         </a-col>
       </template>
       <template v-else>
         <a-col
-          v-for="item in row.formItem"
+          v-for="item in row.content"
           :key="item.id"
           :span="item.grid.span"
           :offset="item.grid.offset"
@@ -56,8 +56,8 @@ export default {
         console.log('onValuesChange', props, values)
         const currentViewData = core.updateViewDataByField(values, this.viewData)
         const fieldName = Object.keys(values)[0]
-        console.log('validate', currentViewData)
         this.viewData = core.validateForm(currentViewData, fieldName)
+        console.log('validate finsh', this.viewData)
       }
     })
   },
