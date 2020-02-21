@@ -3,7 +3,7 @@
  * @param obj
  * @returns {string|*}
  */
-function getType (obj) {
+export function getType (obj) {
   const str = Object.prototype.toString.call(obj)
   const map = {
     '[object Boolean]': 'boolean',

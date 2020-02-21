@@ -1,12 +1,16 @@
 <template>
   <div class="home">
-    <form-render :meta-data="formData" @click-btn="getClick" />
+    <form-render
+      :meta-data="formData"
+      @click-btn="getClick"
+      :extend-pattern="myPatterns"
+    />
   </div>
 </template>
 
 <script>
 import FormRender from '@/components/FormRender/index'
-import { exampleData } from '@/components/FormRender/core/example'
+import { exampleData, extendPattern } from '@/components/FormRender/core/example'
 
 export default {
   name: 'Home',
@@ -15,7 +19,8 @@ export default {
   },
   data () {
     return {
-      formData: exampleData
+      formData: exampleData,
+      myPatterns: extendPattern
     }
   },
   methods: {

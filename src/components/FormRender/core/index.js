@@ -1,20 +1,22 @@
 import Schema from 'async-validator'
 import { deepClone, generateUnitId } from './utils'
-import defaultConfig, { defaultMsg, validateUI } from './config'
+import defaultConfig, { defaultMsg, validateUI, patterns } from './config'
 
-export function metaData2ViewData (MetaData) {
-  return serialize(MetaData)
+export function metaData2ViewData (MetaData, extendPattern) {
+  return serialize(MetaData, extendPattern)
 }
 
 /**
  * 将元数据转换成可用于视图展示的结构
  * @param metaData
- * @returns {Array}
+ * @param extendPattern
+ * @returns {{formDesc}|Array|any}
  */
-function serialize (metaData) {
+function serialize (metaData, extendPattern) {
   const _metaData = deepClone(metaData)
   if ('formDesc' in _metaData) {
     const { formDesc } = metaData
+    formDesc.errors = []
     if ('rows' in formDesc) {
       const { rows } = formDesc
       for (let i = 0; i < rows.length; i++) {
@@ -24,6 +26,7 @@ function serialize (metaData) {
           let formItemArr = transformItem2Array(formItem)
           formItemArr = addDefaultConfig(formItemArr)
           formItemArr = addValidateOption(formItemArr)
+          formItemArr = transformPattern(formItemArr, extendPattern)
           rows[i].content = formItemArr
         }
       }
@@ -185,4 +188,26 @@ function generateValidateDescriptor (fieldData) {
     }
   }
   return {}
+}
+
+function transformPattern (formItemArr, extendPattern) {
+  const totalPatterns = combinePattern(patterns, extendPattern)
+  for (let i = 0; i < formItemArr.length; i++) {
+    for (let n = 0; n < formItemArr[i].rules.length; n++) {
+      const patternName = (formItemArr[i].rules[n].pattern && typeof (formItemArr[i].rules[n].pattern) === 'string') ? formItemArr[i].rules[n].pattern : null
+      if (patternName) {
+        const pattern = totalPatterns[patternName]
+        formItemArr[i].rules[n].pattern = pattern.regexp
+        formItemArr[i].rules[n].message = pattern.message
+      }
+    }
+  }
+  return formItemArr
+}
+
+export function combinePattern (defaultPattern, extendPattern) {
+  return {
+    ...defaultPattern,
+    ...extendPattern
+  }
 }

@@ -45,6 +45,9 @@ export default {
     metaData: {
       type: Object,
       required: true
+    },
+    extendPattern: {
+      type: Object
     }
   },
   beforeCreate () {
@@ -75,7 +78,7 @@ export default {
     }
   },
   created () {
-    this.viewData = core.metaData2ViewData(this.metaData)
+    this.viewData = core.metaData2ViewData(this.metaData, this.extendPattern)
     console.log(this.formDesc)
   },
   methods: {
