@@ -11,7 +11,7 @@
   "dependencies": {
     "ant-design-vue": "^1.4.10",
     "async-validator": "^3.2.3",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.26.0",
     "core-js": "^3.6.4",
     "immutability-helper": "^3.0.1",
